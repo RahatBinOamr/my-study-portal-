@@ -1,6 +1,10 @@
 from django import forms
 from .models import *
-from tinymce.widgets import TinyMCE
+
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+
+
 class NotesForm(forms.ModelForm):
   class Meta:
     model = Notes
@@ -35,4 +39,15 @@ class TodoForm(forms.ModelForm):
     widgets={
       'title':forms.TextInput(attrs={'class': 'form-control'}),
       'is_finished':forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+    }
+
+class userRegistrationForm(UserCreationForm):
+  class Meta:
+    model = User
+    fields=['username','email','password1','password2']
+    widgets={
+      'username': forms.TextInput({'class': 'form-control'}),
+      'email': forms.EmailInput({'class': 'form-control'}),
+      'password1': forms.PasswordInput({'class': 'form-control'}),
+      'password2': forms.PasswordInput({'class': 'form-control'}),
     }

@@ -14,7 +14,9 @@ urlpatterns = [
     path('update-todo/<pk>' , views.update_todo,name='update_todo'),
     path('delete-todo/<pk>' , views.delete_todo,name='delete_todo'),
     path('books' , views.Books,name='books'),
-    path('dictionary' , views.Dictionary,name='dictionary'),
+    
+    path('wiki' , views.wiki,name='wiki'),
+    
 ]
 
 

@@ -1,8 +1,12 @@
+{% extends 'dashboard/base.html' %} {% load static %} {% block content %}
 <div class="container">
   <form method="POST">
+    {% csrf_token %}
+
     <fieldset class="form-group">
       <legend class="border-bottom mb-4">Join Today</legend>
     </fieldset>
+    {{form.as_p}}
     <div class="form-group">
       <button href="" class="btn btn-outline-info" type="submit">
         Sign Up
@@ -10,8 +14,10 @@
     </div>
   </form>
   <div class="border-top pt-3">
-    <small class="text-muted">Already have an account?
-      <a class="ml-2" href="#">Sign In</a>
+    <small class="text-muted"
+      >Already have an account?
+      <a class="ml-2 text-primary" href="{% url 'login' %}">Sign In</a>
     </small>
   </div>
 </div>
+{% endblock content %}

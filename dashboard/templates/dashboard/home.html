@@ -5,10 +5,10 @@
 
   <hr />
   <br />
-  <div class="row">
-    <div class="col-md-3">
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col">
       <a href="{% url 'notes' %}">
-        <div class="card">
+        <div class="card h-100">
           <img
             class="card-img-top"
             src="{% static 'images/notes.jpg' %}"
@@ -23,9 +23,9 @@
       </a>
     </div>
 
-    <div class="col-md-3">
+    <div class="col">
       <a href="{% url 'home-work' %}">
-        <div class="card">
+        <div class="card h-100">
           <img
             class="card-img-top"
             src="{% static 'images/homework.jpg' %}"
@@ -39,9 +39,10 @@
         </div>
       </a>
     </div>
-    <div class="col-md-3">
+
+    <div class="col">
       <a href=" {% url 'youtube' %} ">
-        <div class="card">
+        <div class="card h-100">
           <img
             class="card-img-top"
             src="{% static 'images/youtube.jpg' %}"
@@ -54,9 +55,10 @@
         </div>
       </a>
     </div>
-    <div class="col-md-3">
+
+    <div class="col">
       <a href="{% url 'todo' %}">
-        <div class="card">
+        <div class="card h-100">
           <img
             class="card-img-top"
             src="{% static 'images/todo.jpg' %}"
@@ -69,12 +71,10 @@
         </div>
       </a>
     </div>
-  </div>
-  <br /><br /><br />
-  <div class="row">
-    <div class="col-md-3">
+
+    <div class="col">
       <a href="{% url 'books' %}">
-        <div class="card mt-20">
+        <div class="card h-100">
           <img
             class="card-img-top"
             src="{% static 'images/books.jpg' %}"
@@ -88,25 +88,9 @@
       </a>
     </div>
 
-    <div class="col-md-3">
-      <a href="{% url 'dictionary' %}">
-        <div class="card">
-          <img
-            class="card-img-top"
-            src="{% static 'images/dictionary.jpg' %}"
-            alt="Notes image"
-          />
-          <div class="card-body">
-            <h5 class="card-title">Dictionary</h5>
-            A vocabulary from a book is troubling you? No problem, enter the
-            word, and the meaning will be displayed almost instantaneously.
-          </div>
-        </div>
-      </a>
-    </div>
-    <div class="col-md-3">
-      <a href="#">
-        <div class="card">
+    <div class="col">
+      <a href="{% url 'wiki' %}">
+        <div class="card h-100">
           <img
             class="card-img-top"
             src="{% static 'images/wiki.jpg' %}"
@@ -119,23 +103,14 @@
         </div>
       </a>
     </div>
-
-    <div class="col-md-3">
-      <a href="#">
-        <div class="card">
-          <img
-            class="card-img-top"
-            src="{% static 'images/conversion.jpg' %}"
-            alt="Notes image"
-          />
-          <div class="card-body">
-            <h5 class="card-title">Conversion</h5>
-            Check out the conversion table, that helps you to convert
-            measurements to more familiar ones of your choice.
-          </div>
-        </div>
-      </a>
-    </div>
   </div>
 </section>
+<footer class="text-center text-lg-start bg-light text-muted">
+  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05)">
+    © 2023 Copyright:
+    <a class="text-reset fw-bold" href="https://mdbootstrap.com/"
+      >MD Rahat Bin Omar</a
+    >
+  </div>
+</footer>
 {% endblock content %}

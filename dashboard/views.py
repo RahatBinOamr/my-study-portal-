@@ -5,12 +5,15 @@ from .forms import *
 from .models import *
 from youtubesearchpython import VideosSearch
 import requests
-
+import wikipedia
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required
 def Home(request):
   return render(request, 'dashboard/home.html')
 
+@login_required
 def Note(request):
   if request.method == 'POST':
     form = NotesForm(request.POST)
@@ -26,6 +29,8 @@ def Note(request):
     'form': form
   }
   return render(request, 'dashboard/notes.html' , context)
+
+@login_required
 def delete_note(request,pk=None):
   Notes.objects.get(id=pk).delete()
   return redirect('notes')
@@ -35,7 +40,7 @@ class note_details(generic.DetailView):
   model = Notes
   
 
-
+@login_required
 def homeWork(request):
   if request.method=='POST':
     form = homeWorkForm(request.POST)
@@ -73,7 +78,7 @@ def homeWork(request):
   }
   return render(request, 'dashboard/homework.html',context)
 
-
+@login_required
 def update_homeWork(request,pk=None):
   homework = HomeWork.objects.get(id=pk)
   if homework.is_finished == True:
@@ -84,12 +89,12 @@ def update_homeWork(request,pk=None):
   return redirect('home-work')
 
 
-
+@login_required
 def delete_homework(request,pk=None):
   HomeWork.objects.get(id=pk).delete()
   return redirect('home-work')
 
-
+@login_required
 def YouTube(request):
   if request.method =="POST":
     form= DashboardForm()
@@ -126,6 +131,8 @@ def YouTube(request):
   }
   return render(request, 'dashboard/youtube.html',context)
 
+
+@login_required
 def ToDo(request):
   try:
         isFinished = request.POST['is_finished']
@@ -160,7 +167,7 @@ def ToDo(request):
   }
   return render(request, 'dashboard/todo.html',context)
 
-
+@login_required
 def update_todo(request,pk=None):
   todo = Todo.objects.get(id=pk)
   if todo.is_finished == True:
@@ -170,12 +177,12 @@ def update_todo(request,pk=None):
   todo.save() 
   return redirect('todo')
 
-
+@login_required
 def delete_todo(request,pk=None):
   Todo.objects.get(id=pk).delete()
   return redirect('todo')
 
-
+@login_required
 def Books(request):
   if request.method =="POST":
     form= DashboardForm()
@@ -198,7 +205,7 @@ def Books(request):
         
         
       }
-     
+
       result_list.append(result_dict)
       context={
         'form':form,
@@ -213,37 +220,39 @@ def Books(request):
   return render(request,'dashboard/books.html',context)
 
 
-def Dictionary(request):
+
+@login_required  
+def wiki(request):
   if request.method == 'POST':
-    form= DashboardForm()
-    text=request.POST['text']
-    url="https://api.dictionaryapi.dev/api/v2/entires/en_US/"+text
-    r=requests.get(url)
-    answer=r.json()
-    try:
-      phonetics=answer[0]['phonetics'][0]['text']
-      audio=answer[0]['phonetics'][0]['audio']
-      definition=answer[0]['meanings'][0]['definitions'][0]['definition']
-      example=answer[0]['meanings'][0]['definitions'][0]['example']
-      synonyms=answer[0]['meanings'][0]['definitions'][0]['synonyms']
-      context={
-        'form':form,
-        'inputs':text,
-        'phonetics':phonetics,
-        'audio':audio,
-        'definition':definition,
-        'example':example,
-        'synonyms':synonyms,
-      }
-    except:
-      context={
-        'form':form,
-        'inputs':''
-        }
-    return render(request, 'dashboard/dictionary.html',context)
+    text= request.POST['text']
+    form= DashboardForm(request.POST)
+    search=wikipedia.page(text)
+    context={
+      'form': form,
+      'title':search.title,
+      'link':search.url,
+      'details':search.summary
+    }
+    return render(request, 'dashboard/wiki.html',context)
   else:
     form= DashboardForm()
     context={
-    'form':form,
+      'form':form
     }
-  return render(request, 'dashboard/dictionary.html',context)
+  return render(request, 'dashboard/wiki.html',context)
+
+
+
+def Register(request):
+  if request.method == 'POST':
+    form = userRegistrationForm(request.POST)
+    if form.is_valid():
+      form.save()
+      messages.success(request,f"User registration successful")
+      return redirect('login')
+  else:
+      form=userRegistrationForm()
+  context={
+    'form':form
+  }
+  return render(request, 'dashboard/register.html',context)
