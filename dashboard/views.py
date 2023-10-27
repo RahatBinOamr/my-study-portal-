@@ -18,7 +18,11 @@ def Note(request):
   if request.method == 'POST':
     form = NotesForm(request.POST)
     if form.is_valid():
-      notes = Notes(user=request.user, title= request.POST['title'] , description=request.POST['description'] )
+      notes = Notes(
+        user=request.user, 
+        title= request.POST['title'] , 
+        description=request.POST['description'] 
+        )
       notes.save()
     messages.success(request,f"Notes saved successfully")
 
@@ -45,6 +49,7 @@ def update_note(request,pk=None):
         form = NotesForm(request.POST, instance=data)
         if form.is_valid():
             form.save()
+            messages.success(request,f"Note updated successfully")
             return redirect('notes')
   else:
     data =Notes.objects.get(id=pk)
