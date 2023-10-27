@@ -3,7 +3,7 @@ from .models import *
 
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-
+from ckeditor.fields import RichTextField
 
 class NotesForm(forms.ModelForm):
   class Meta:
@@ -11,7 +11,7 @@ class NotesForm(forms.ModelForm):
     fields = ['title', 'description']
     widgets={
       'title':forms.TextInput(attrs={'class': 'form-control'}),
-      'description': forms.Textarea(attrs={'class': 'form-control'}),
+      'description':RichTextField()
     } 
 
 class DateInput(forms.DateInput):

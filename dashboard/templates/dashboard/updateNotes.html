@@ -1,0 +1,22 @@
+{% extends 'dashboard/base.html' %} {% load static %} {% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col col-6 p-3">
+      <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+          <legend class="border-bottom mb-4">Update Notes</legend>
+        </fieldset>
+
+        {{form.media}} {{form.as_p}}
+
+        <div class="form-group">
+          <button href="" class="btn btn-outline-info" type="submit">
+            Update
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}

@@ -1,14 +1,14 @@
 {% extends 'dashboard/base.html' %} {% load static %} {% block content %}
 
-<section class="text-center container">
-  <div class="container">
-    <div class="content-section p-0 mt-5">
+<section class="container">
+  <div class="">
+    <div class="content-section p-5">
       <div class="m-3">
-        <h2>{{notes.title}}</h2>
+        <h2>{{notes.title | safe}}</h2>
       </div>
 
       <hr class="p-0 m-0" />
-      <p class="description m-5 p-5">{{notes.description}}</p>
+      <p class="description">{{notes.description | safe}}</p>
       <hr />
     </div>
   </div>

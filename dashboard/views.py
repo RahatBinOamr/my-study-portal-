@@ -39,6 +39,21 @@ def delete_note(request,pk=None):
 class note_details(generic.DetailView):
   model = Notes
   
+def update_note(request,pk=None):
+  if request.method == 'POST':
+        data = Notes.objects.get(id=pk)
+        form = NotesForm(request.POST, instance=data)
+        if form.is_valid():
+            form.save()
+            return redirect('notes')
+  else:
+    data =Notes.objects.get(id=pk)
+    form = NotesForm(instance=data)
+  context = {
+      'form': form,
+  }
+  return render(request, 'dashboard/updateNotes.html',context)
+
 
 @login_required
 def homeWork(request):
